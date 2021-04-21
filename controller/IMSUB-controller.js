@@ -85,7 +85,7 @@ exports.updateInvoices = async (req, res, next) => {
 
 exports.deleteInvoice = async (req, res, next) => {
   try {
-    const invoice = await Invoices.findByIdAndDelete(req.params.id)
+    const invoice = await Invoices.findByIdAndDelete(req.params.id);
     res.status(200).json({ msg: 'Deleted successfylly' });
     if (!invoice) {
       return res.status(400).json({ success: false });

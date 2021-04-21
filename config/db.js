@@ -5,9 +5,11 @@ const connectDB = async () => {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-	useUnifiedTopology: true,
+    useUnifiedTopology: true,
   });
-  console.log(`Connected to MongoDB ${con.connection.host}`.cyan.underline.bold);
+  console.log(
+    `Connected to MongoDB ${con.connection.host}`.cyan.underline.bold
+  );
 };
 
 module.exports = connectDB;

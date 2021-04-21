@@ -12,10 +12,10 @@ const router = express.Router();
 
 router.route('/login/:id').post(loginIMSUB);
 router.route('/register/:id').post(registerIMSUB);
-router.route('/invoices').get(getInvoices)
-router.route('/:id').get(getSingleInvoice)
-router.route('/').post(createInvoice)
-router.route('/:id').put(updateInvoices)
-router.route('/:id').delete(deleteInvoice)
+router.route('/invoices').get(getInvoices);
+router.route('/:id').get(getSingleInvoice);
+router.route('/').post(createInvoice);
+router.route('/:id').put(updateInvoices);
+router.route('/:id').delete(deleteInvoice);
 
 module.exports = router;
