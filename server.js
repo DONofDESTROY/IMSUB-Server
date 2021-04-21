@@ -15,13 +15,16 @@ const IMSUB = require('./routes/IMSUB');
 
 const app = express();
 
+// Body parser
+app.use(express.json())
+
 // Dev env logger
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
 // Mount the routes
-app.use('/api/v1/', IMSUB);
+app.use('/api/v1/operations', IMSUB);
 
 app.get('/api/v1/', (req, res) => {
   res.status(200).json({ page: 'main page' });
