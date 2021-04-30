@@ -23,14 +23,18 @@ exports.registerIMSUB = (req, res, next) => {
 };
 
 /**
- * @desc         get invoices
+ * @desc         get all invoices
  * @route        GET /api/v1/operations/invoices
  * @access       Protected
  */
 
 exports.getInvoices = asyncHandler(async (req, res, next) => {
   const invoices = await Invoices.find();
-  res.status(200).json({ success: true, data: invoices });
+  res.status(200).json({
+    success: true,
+    count: invoices.length,
+    data: invoices,
+  });
 });
 
 /**
@@ -75,7 +79,7 @@ exports.updateInvoices = asyncHandler(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
-  res.status(200).json({ msg: 'updated successfylly' });
+  res.status(200).json({ success: true, message: 'updated successfylly' });
   if (!invoice) {
     return next(
       new ErrorResponse(`Invoice not found with id of ${req.params.id}`, 404)
@@ -91,7 +95,7 @@ exports.updateInvoices = asyncHandler(async (req, res, next) => {
 
 exports.deleteInvoice = asyncHandler(async (req, res, next) => {
   const invoice = await Invoices.findByIdAndDelete(req.params.id);
-  res.status(200).json({ msg: 'Deleted successfylly' });
+  res.status(200).json({ success: true, message: 'Deleted successfylly' });
   if (!invoice) {
     return next(
       new ErrorResponse(`Invoice not found with id of ${req.params.id}`, 404)

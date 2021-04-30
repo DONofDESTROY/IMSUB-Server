@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
+
 const InvoiceSchema = new mongoose.Schema({
   customerName: {
     type: String,
@@ -21,6 +23,7 @@ const InvoiceSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+    unique: true,
     maxlength: [20, 'Phone number cannot be longet than 20 characters'],
   },
   totalAmout: {
@@ -43,6 +46,12 @@ const InvoiceSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+// Create invoice slug from the name
+InvoiceSchema.pre('save', function (next) {
+  this.slug = slugify(this.customerName, { lower: true });
+  next();
 });
 
 module.exports = mongoose.model('Invoices', InvoiceSchema);
