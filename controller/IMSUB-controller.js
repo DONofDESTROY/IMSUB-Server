@@ -1,7 +1,7 @@
 const Invoices = require('../models/IMSUB-models');
 
 /**
- * @des          login
+ * @desc          login
  * @route        POST	/api/v1/operations/login/:id
  * @access       Public
  */
@@ -11,7 +11,7 @@ exports.loginIMSUB = (req, res, next) => {
 };
 
 /**
- * @des          register
+ * @desc          register
  * @route        POST /api/v1/operations/register/:id
  * @access       Public
  */
@@ -21,7 +21,7 @@ exports.registerIMSUB = (req, res, next) => {
 };
 
 /**
- * @des          get invoices
+ * @desc          get invoices
  * @route        GET /api/v1/operations/invoices
  * @access       Protected
  */
@@ -37,7 +37,7 @@ exports.getInvoices = async (req, res, next) => {
 };
 
 /**
- * @des          get single invoice
+ * @desc          get single invoice
  * @route        GET /api/v1/operations/invoice/:id
  * @access       Protected
  */
@@ -55,7 +55,7 @@ exports.getSingleInvoice = async (req, res, next) => {
 };
 
 /**
- * @des    	    Create new Invoice
+ * @desc    	    Create new Invoice
  * @route 		POST /api/v1/operations/invoice
  * @access 		Protected
  */
@@ -73,7 +73,7 @@ exports.createInvoice = async (req, res, next) => {
 };
 
 /**
- * @des          Update Invoice
+ * @desc          Update Invoice
  * @route        PUT /api/v1/operations/invoice/:id
  * @access       Protected
  */
@@ -94,7 +94,7 @@ exports.updateInvoices = async (req, res, next) => {
 };
 
 /**
- * @des          Delete Invoice
+ * @desc          Delete Invoice
  * @route        DELETE /api/v1/operations/invoice/:id
  * @access       Protected
  */
