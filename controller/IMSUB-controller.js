@@ -1,4 +1,5 @@
 const Invoices = require('../models/IMSUB-models');
+const ErrorResponse = require('../utils/errorResponse');
 
 /**
  * @desc         login
@@ -29,10 +30,9 @@ exports.registerIMSUB = (req, res, next) => {
 exports.getInvoices = async (req, res, next) => {
   try {
     const invoices = await Invoices.find();
-
     res.status(200).json({ success: true, data: invoices });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -45,12 +45,15 @@ exports.getInvoices = async (req, res, next) => {
 exports.getSingleInvoice = async (req, res, next) => {
   try {
     const invoice = await Invoices.findById(req.params.id);
+
     if (!invoice) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Invoice not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: invoice });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -68,7 +71,7 @@ exports.createInvoice = async (req, res, next) => {
       data: invoices,
     });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -86,10 +89,12 @@ exports.updateInvoices = async (req, res, next) => {
     });
     res.status(200).json({ msg: 'updated successfylly' });
     if (!invoice) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Invoice not found with id of ${req.params.id}`, 404)
+      );
     }
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -104,9 +109,11 @@ exports.deleteInvoice = async (req, res, next) => {
     const invoice = await Invoices.findByIdAndDelete(req.params.id);
     res.status(200).json({ msg: 'Deleted successfylly' });
     if (!invoice) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Invoice not found with id of ${req.params.id}`, 404)
+      );
     }
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };

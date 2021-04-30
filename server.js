@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
 
 // load env variables
 dotenv.config({ path: 'config/config.env' });
@@ -25,6 +26,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // Mount the routes
 app.use('/api/v1/operations', IMSUB);
+
+// Error Handeling
+app.use(errorHandler);
 
 app.get('/api/v1/', (req, res) => {
   res.status(200).json({ page: 'main page' });

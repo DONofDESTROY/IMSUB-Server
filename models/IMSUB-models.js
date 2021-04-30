@@ -35,6 +35,14 @@ const InvoiceSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  paymentStatus: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('Invoices', InvoiceSchema);
