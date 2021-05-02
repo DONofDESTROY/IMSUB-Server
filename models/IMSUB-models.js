@@ -1,35 +1,43 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+// function phoneValidator(no){
+//   return val ==  /\d{10}/.test(v);
+// }
 const InvoiceSchema = new mongoose.Schema({
   customerName: {
     type: String,
-    required: [true, 'Please give a client name'],
+    required: [true, "Please give a client name"],
     trim: true,
-    maxlenght: [10, 'Name cannot be more than 10 characters'],
+    maxlength: [10, "Name cannot be more than 10 characters"],
   },
   slug: String,
   description: {
     type: String,
-    required: [true, 'Add a description for the invoice'],
+    required: [true, "Add a description for the invoice"],
   },
   clientEmail: {
     type: String,
     unique: true,
     match: [
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      'Please enter valid email',
+      "Please enter valid email",
     ],
   },
   phone: {
-    type: String,
-    maxlength: [20, 'Phone number cannot be longet than 20 characters'],
+    type: Number,
+    validate: {
+      validator: function (v) {
+        return /\d{10}/.test(v);
+      },
+      message: "Please enter a 10 digit mobile number",
+    },
   },
   totalAmout: {
     type: Number,
-    min: [1, 'Amount cannot be less than 1rs'],
+    min: [1, "Amount cannot be less than 1rs"],
   },
   totalGST: {
     type: Number,
-    min: [1, 'Total Gst cannot be less than 1%'],
+    min: [1, "Total Gst cannot be less than 1%"],
   },
   items: {
     type: [String],
@@ -37,4 +45,4 @@ const InvoiceSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Invoices', InvoiceSchema);
+module.exports = mongoose.model("Invoices", InvoiceSchema);
