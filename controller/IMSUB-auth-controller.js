@@ -9,7 +9,6 @@ const ErrorResponse = require('../utils/ErrorResponse');
  */
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log('email is: ', email, 'password is: ', password);
 
   // Validate email & password
   if (!email || !password) {
@@ -18,17 +17,16 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   // Check for user
   const user = await User.findOne({ email }).select('+password');
-  console.log(user);
 
   if (!user) {
-    return next(new ErrorResponse('Invalid Credentials', 400));
+    return next(new ErrorResponse('Invalid Credentials', 401));
   }
 
   // Chekc if the password matches
   const isMatch = await user.matchPassword(password);
 
   if (!isMatch) {
-    return next(new ErrorResponse('Invalid Credentials', 400));
+    return next(new ErrorResponse('Invalid Credentials', 401));
   }
 
   // Create token
