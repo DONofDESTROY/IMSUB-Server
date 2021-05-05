@@ -1,26 +1,7 @@
 const Invoices = require('../models/IMSUB-models');
 const asyncHandler = require('../middleware/async');
-const ErrorResponse = require('../utils/errorResponse');
+const ErrorResponse = require('../utils/ErrorResponse');
 
-/**
- * @desc         login
- * @route        POST	/api/v1/operations/login/:id
- * @access       Public
- */
-
-exports.loginIMSUB = (req, res, next) => {
-  res.status(200).json({ username: 'user' });
-};
-
-/**
- * @desc         register
- * @route        POST /api/v1/operations/register/:id
- * @access       Public
- */
-
-exports.registerIMSUB = (req, res, next) => {
-  res.status(200).json({ success: `Successfully registered ${req.params.id}` });
-};
 
 /**
  * @desc         get all invoices
@@ -56,7 +37,7 @@ exports.getSingleInvoice = asyncHandler(async (req, res, next) => {
 
 /**
  * @desc   	    Create new Invoice
- * @route 		POST /api/v1/operations/invoice
+ * @route 		POST /api/v1/operations/
  * @access 		Protected
  */
 

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "seeder": "node _data/seeder.js"
   },
   "author": "Delhi Babu. R, Dhanush .B, Jayanth .S",
   "license": "MIT",
@@ -21,6 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
     "morgan": "^1.10.0",
+    "ora": "^5.4.0",
     "slugify": "^1.5.0"
   }
 }

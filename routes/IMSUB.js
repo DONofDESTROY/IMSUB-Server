@@ -1,7 +1,5 @@
 const express = require('express');
 const {
-  loginIMSUB,
-  registerIMSUB,
   getInvoices,
   getSingleInvoice,
   createInvoice,
@@ -10,8 +8,6 @@ const {
 } = require('../controller/IMSUB-controller');
 const router = express.Router();
 
-router.route('/login/:id').post(loginIMSUB);
-router.route('/register/:id').post(registerIMSUB);
 router.route('/invoices').get(getInvoices);
 router.route('/invoice/:id').get(getSingleInvoice);
 router.route('/').post(createInvoice);
