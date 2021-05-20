@@ -35,6 +35,19 @@ exports.login = asyncHandler(async (req, res, next) => {
 });
 
 /**
+ * @desc         Logout user
+ * @route        GET /api/v1/auth/logout
+ * @access       Protected
+ */
+
+exports.logout = asyncHandler(async (req, res, next) => {
+  res.status(200).clearCookie('token').json({
+    success: true,
+    data: 'logout success',
+  });
+});
+
+/**
  * @desc         register
  * @route        POST /api/v1/auth/register
  * @access       Public
