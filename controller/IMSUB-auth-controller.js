@@ -53,11 +53,15 @@ exports.logout = asyncHandler(async (req, res, next) => {
  * @access       Public
  */
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { firstName, secondName, companyName, gst, email, password, role } =
+    req.body;
 
   // Create user
   const user = await User.create({
-    name,
+    firstName,
+    secondName,
+    companyName,
+    gst,
     email,
     password,
     role,

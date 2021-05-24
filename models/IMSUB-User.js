@@ -3,9 +3,26 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    required: [true, 'Please add a name'],
+    required: [true, 'Please add a first name'],
+  },
+  secondName: {
+    type: String,
+    required: [true, 'Please add a second name'],
+  },
+  companyName: {
+    type: String,
+    required: [true, 'Please add a company name'],
+  },
+  gst: {
+    type: String,
+    required: [true, 'Please add a GSTIN'],
+    unique: true,
+    match: [
+      /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/,
+      'Please enter unique gst number',
+    ],
   },
   email: {
     type: String,
