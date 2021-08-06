@@ -1,4 +1,6 @@
 const Invoices = require('../models/IMSUB-models');
+const BlockChain = require('../models/IMSUB-Block');
+const { AuditLogBlockchain } = require('../utils/chain');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/ErrorResponse');
 
@@ -17,6 +19,19 @@ exports.getInvoices = asyncHandler(async (req, res, next) => {
     success: true,
     count: invoices.length,
     data: invoices,
+  });
+});
+
+/*
+ *@desc get block chain data
+ *@route GET /api/v1/operations/blockchain
+ *@access public
+ * */
+exports.getBlockChain = asyncHandler(async (req, res, next) => {
+  const blockChainData = await BlockChain.find();
+  res.status(200).json({
+    success: true,
+    data: blockChainData,
   });
 });
 
@@ -58,8 +73,15 @@ exports.getSingleInvoice = asyncHandler(async (req, res, next) => {
 exports.createInvoice = asyncHandler(async (req, res, next) => {
   // Add user to req.body
   req.body.user = req.user.id;
+  let blockChain = new AuditLogBlockchain();
 
   const invoices = await Invoices.create(req.body);
+
+  console.log('new block request');
+  let entry = await blockChain.createTransaction(
+    JSON.stringify(req.body.items)
+  );
+  console.log(`new block added`);
   res.status(200).json({
     success: true,
     data: invoices,

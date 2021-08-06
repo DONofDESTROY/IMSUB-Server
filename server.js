@@ -6,6 +6,8 @@ const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
 var cors = require('cors');
+const { AuditLogBlockchain } = require('./utils/chain')
+const validator = require('./middleware/validator')
 
 const corsConfig = {
   origin: true,
@@ -46,12 +48,26 @@ app.use('/api/v1/auth', auth);
 // Error Handeling
 app.use(errorHandler);
 
+// BlockChain Validator
+app.use(validator)
+
 // Root route
 app.get('/api/v1/', (req, res) => {
   res.status(200).json({ page: 'main page' });
 });
 
 const PORT = process.env.PORT || 5000;
+
+// create a blockchain
+const createChain = async () => {
+  let blockChain = new AuditLogBlockchain()
+  await blockChain.initialize()
+  let status = await blockChain.checkChainValidity();
+  console.log(`Chain Status ${(status) ? 'SUCCESS' : 'FAILED'}`.red.bold)
+}
+
+createChain()
+
 
 // Start the server and listen
 const server = app.listen(
